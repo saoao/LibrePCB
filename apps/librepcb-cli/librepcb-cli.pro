@@ -1,7 +1,5 @@
 #-------------------------------------------------
-#
-# Project created by QtCreator 2013-02-05T16:47:16
-#
+# App: LibrePCB command-line interface
 #-------------------------------------------------
 
 TEMPLATE = app
@@ -33,11 +31,9 @@ LIBS += \
     -lsexpresso \
     -lclipper \
     -lmuparser \
-    -lquazip -lz
 
 INCLUDEPATH += \
     ../../libs \
-    ../../libs/quazip \
     ../../libs/type_safe/include \
     ../../libs/type_safe/external/debug_assert \
 
@@ -50,24 +46,28 @@ DEPENDPATH += \
     ../../libs/librepcb/project \
     ../../libs/librepcb/library \
     ../../libs/librepcb/common \
-    ../../libs/quazip \
     ../../libs/sexpresso \
     ../../libs/clipper \
     ../../libs/muparser \
 
 PRE_TARGETDEPS += \
     $${DESTDIR}/libhoedown.a \
-    $${DESTDIR}/liblibrepcblibrarymanager.a \
-    $${DESTDIR}/liblibrepcbprojecteditor.a \
-    $${DESTDIR}/liblibrepcblibraryeditor.a \
-    $${DESTDIR}/liblibrepcbworkspace.a \
-    $${DESTDIR}/liblibrepcbproject.a \
-    $${DESTDIR}/liblibrepcblibrary.a \
-    $${DESTDIR}/liblibrepcbcommon.a \
-    $${DESTDIR}/libquazip.a \
     $${DESTDIR}/libsexpresso.a \
     $${DESTDIR}/libclipper.a \
     $${DESTDIR}/libmuparser.a \
+
+isEmpty(UNBUNDLE) {
+    # These libraries will only be linked statically when not unbundling
+    PRE_TARGETDEPS += \
+        $${DESTDIR}/liblibrepcblibrarymanager.a \
+        $${DESTDIR}/liblibrepcbprojecteditor.a \
+        $${DESTDIR}/liblibrepcblibraryeditor.a \
+        $${DESTDIR}/liblibrepcbworkspace.a \
+        $${DESTDIR}/liblibrepcbproject.a \
+        $${DESTDIR}/liblibrepcblibrary.a \
+        $${DESTDIR}/liblibrepcbcommon.a \
+        $${DESTDIR}/libquazip.a \
+}
 
 RESOURCES += \
     ../../img/images.qrc \
@@ -79,3 +79,9 @@ SOURCES += \
 HEADERS += \
     commandlineinterface.h \
 
+# QuaZIP
+!contains(UNBUNDLE, quazip) {
+    LIBS += -lquazip -lz
+    INCLUDEPATH += ../../libs/quazip
+    DEPENDPATH += ../../libs/quazip
+}
