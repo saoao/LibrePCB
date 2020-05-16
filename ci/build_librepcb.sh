@@ -38,7 +38,7 @@ fi
 
 # build librepcb
 mkdir build && pushd build
-if [ "$UNBUNDLE" != "" ]; then
+if [ "${UNBUNDLE-}" != "" ]; then
   ADDITIONAL_ARGS="UNBUNDLE+=$UNBUNDLE"
 else
   ADDITIONAL_ARGS=""
