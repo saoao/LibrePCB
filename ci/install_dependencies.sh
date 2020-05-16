@@ -3,6 +3,8 @@
 QTIFW_VERSION="3.2.2"
 QTIFW_URL_BASE="https://download.qt.io/official_releases/qt-installer-framework/$QTIFW_VERSION"
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 # Install dependencies on Linux
 if [ "$OS" = "linux" ]
 then
@@ -11,6 +13,11 @@ then
   pip install --user -r ./tests/cli/requirements.txt
   pip install --user -r ./tests/funq/requirements.txt
   export PATH="$PATH:`python -m site --user-base`/bin"
+
+  # quazip pkg-config file
+  if [ "$(grep -c ID=ubuntu /etc/os-release)" -gt 0 ]; then
+    sudo cp "$DIR/quazip.pc" /usr/lib/pkgconfig/quazip.pc
+  fi
 
 # Install dependencies on OS X
 elif [ "$OS" = "mac" ]
