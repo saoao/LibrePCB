@@ -19,7 +19,7 @@ jobs:
         CC: clang
         CXX: clang++
       Ubuntu_2004_GCC:
-        IMAGE: librepcb/librepcb-dev:ubuntu-20.04-1
+        IMAGE: dbrgn/librepcb-dev:ubuntu-20.04-1
   container: $[ variables['IMAGE'] ]
   steps:
   - checkout: self
