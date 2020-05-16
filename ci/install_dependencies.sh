@@ -14,12 +14,6 @@ then
   pip install --user -r "$DIR/../tests/funq/requirements.txt"
   export PATH="$PATH:`python -m site --user-base`/bin"
 
-  # quazip pkg-config file
-  if [ "$(grep -c ID=ubuntu /etc/os-release)" -gt 0 ]; then
-    echo "Copying quazip.pc to /usr/lib/pkgconfig/"
-    cp "$DIR/quazip.pc" /usr/lib/pkgconfig/quazip.pc
-  fi
-
 # Install dependencies on OS X
 elif [ "$OS" = "mac" ]
 then
