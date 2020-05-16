@@ -65,14 +65,21 @@ jobs:
     ARCH: 'x86_64'
   strategy:
     matrix:
-      Ubuntu_2004_GCC:
-        IMAGE: librepcb/librepcb-dev:ubuntu-20.04-2
+      Arch_GCC:
+        IMAGE: archlinux/latest
   container: $[ variables['IMAGE'] ]
   steps:
   - checkout: self
     clean: true
     submodules: recursive
   - bash: |
+      pacman -Sy --noconfirm \
+        gcc \
+        qt5-base qt5-svg qt5-tools \
+        git desktop-file-utils hicolor-icon-theme \
+        pkg-config quazip \
+        python python-pip \
+        xorg-server-xvfb
       source ./ci/install_dependencies.sh
       # Pass modified PATH to following steps:
       echo "##vso[task.setvariable variable=PATH]$PATH"
