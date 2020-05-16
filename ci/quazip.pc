@@ -5,7 +5,7 @@ includedir=${prefix}/include
 
 Name: Quazip
 Description: Quazip Library
-Version: 
+Version:
 Libs: -lquazip5
 Cflags:
 Requires: Qt5Core
